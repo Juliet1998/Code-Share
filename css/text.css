@@ -1,0 +1,18 @@
+.root {
+   background-color: #eee;
+ }
+
+.left_side {
+float: left;
+ }
+
+.center_s {
+margin-left: auto;
+margin-right: auto;
+width: 65px;
+background-color: #ccc;
+}
+
+.right_side {
+float: right;
+}

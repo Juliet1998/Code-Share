@@ -1,0 +1,49 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/login.css">
+ <script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script> 
+</head>
+<body>
+<h1 align="center">Drexel Coding Service</h1>
+<!-- The Modal -->
+<div id="id01">
+  <!--span onclick="document.getElementById('id01').style.display='none'"
+class="close" title="Close Modal">&times;</span-->
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" action="/send" method="POST">
+    <!-- div class="imgcontainer">
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div -->
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+	<div class="psw"><a href="#">New User?</a><br>
+			<a href="#">Forgot your password?</a></div>
+    </div>
+
+    <div class="container">
+      <!-- button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button-->
+    </div>
+  </form>
+</div>
+</body>
+</html>
