@@ -1,0 +1,10 @@
+# Code Share
+What needs to be merged
+
+1. login session code in "/login"
+2. insert post into database "/post"
+3. veiw post from database "/view"
+4. logout code "/logout"
+
+Html side is done,
+Merge code in server.js

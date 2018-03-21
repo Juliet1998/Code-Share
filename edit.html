@@ -56,21 +56,26 @@ $("textarea").keydown(function(e) {
 });
 });
 </script>
+<script> 
+    $(function(){
+      $("#includedContent").load("dashboard.html"); 
+    });
+</script> 
 </head>
 <body onload="getLan()">
-<div ng-app="">
-<p>Put your code here: </p>
-<textarea class="left_side" id="textbox" rows="20" cols="50" ng-model="name"></textarea>
-<!-- textarea class="left_side" rows="20" cols="50" ng-bind="name" style="white-space: pre-line;margin-left:20px"></textarea-->
-<pre class="left_side" id="code" style="white-space: pre;margin-left:20px"></pre>
-</div>
+<div id="includedContent"></div>
 
-<div style="clear: both">
-	<select id="Select">
-	</select>
-	<input type=button onclick="getCode()" value="Preview"/>
-	<input type=button onclick="#" value="Submit"/>
-</div>
+<p style="margin-left: 200px;">Put your code here: </p>
+<form action="/post" method="POST">
+	<textarea class="left_side" id="textbox" rows="20" cols="60" name="post" style="resize: vertical;"></textarea>
+	<pre class="left_side" id="code" style="white-space: pre;margin-left: 20px;"></pre>
+	<div style="clear: both; margin-left: 200px;">
+		<select id="Select" name="lan">
+		</select>
+		<input type=button onclick="getCode()" value="Preview"/>
+		<button type="submit">Submit</button>
+	</div>
 
+</form>
 </body>
 </html>

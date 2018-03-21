@@ -1,7 +1,7 @@
 /*
 * Liye Zhu
-* CS 275 Homeowrk 4
-* 2/27/2018
+* CS 275 Final Project
+* 3/21/2018
 *
 */
 
@@ -130,6 +130,55 @@ console.log('Server started...');
 });
 
 
-app.post("/send", function(req, res){
-  res.redirect("/dashboard")
+app.post("/login", function(req, res){
+  //put session code here
+  res.redirect("/home");
 });
+
+app.post('/signUp', function(req,res){
+    var name = req.body.stud_name;
+    var user_name = req.body.u_name;
+    var p_word = req.body.p_word;
+    var p_lang = req.body.lang;
+    createUser(user_name, p_word);
+});
+
+app.get("/create", function(red, res){
+  //redirect user to edit page
+  res.redirect('./edit.html');
+});
+
+app.get("/home", function(red, res){
+  //redirect user to home page
+  res.redirect('./dashboard.html');
+});
+
+app.get("/mypost", function(red, res){
+  //redirect user to home page
+  res.redirect('./mypost.html');
+});
+
+app.get("/success", function(req, res){
+  //redirect user to the success page
+  res.redirect("./success.html");
+});
+
+app.get("/view", function(req, res){
+  //put actions here when a post is submitted by user
+  console.log(req.query.id); //id for post
+  res.send("Hello"); //send post content back here
+});
+
+app.post("/post", function(req, res){
+  //put actions here when a post is submitted by user
+  console.log(req.body.post); //content of post
+  console.log(req.body.lan); //language of post
+  res.redirect("/success");
+});
+
+
+app.get("/logout", function(req, res){
+  //put actions here to logoff an user
+  res.send("Not done");
+});
+

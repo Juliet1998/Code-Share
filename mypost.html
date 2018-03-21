@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	@import url("css/text.css");
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script> 
+    $(function(){
+      $("#includedContent").load("dashboard.html"); 
+    });
+</script> 
+<script type="text/javascript">
+	function viewPost(){
+		var id = document.getElementById("id").value;
+		var URL = "http://localhost:8080/view?id=" + id;
+		alert(URL);
+		$.ajax({
+			type: "GET",
+			url: URL,
+			dataType: "html",
+			success : function(msg){
+				document.getElementById("result").innerHTML = msg ;
+			},
+			error: function(jgXHR, textStatus,errorThrown){
+			alert("Error: " + textStatus+ " " + errorThrown);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+<div id="includedContent"></div>
+<div class="left_side">
+<input type=text id="id" />
+<input type=button onclick="viewPost()" value="View"/>
+<div id="result"></div>
+</div>
+</body>
+</html>

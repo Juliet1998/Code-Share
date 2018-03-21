@@ -1,0 +1,38 @@
+<html>
+
+    <head>
+    <h2><b>Sign Up Today!</b></h2>
+    
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <p>Please, fill in form to create a new account</p>
+    <hr>
+    </head>
+    
+    <body>
+        
+    <div class="sign_upF">
+        
+    <form action="/signUp" method="POST">
+    <label for="stud_name"><b>Full name</b></label><br>
+    <input type="text" placeholder="Enter full name" name="stud_name" required><br>
+        
+    <label for="u_name"><b>Username</b></label><br>
+    <input type="text" placeholder="Enter username" name="u_name" required><br>
+        
+    <label for="p_word"><b>Password</b></label><br>
+    <input type="password" placeholder="Enter Password" name="p_word" required><br>
+        
+    <label for="lang"><b>Programming Language</b></label><br>
+    <input type="text" placeholder="Enter programming language" name="lang" required><br>
+        
+    <button type="submit" class = "signup_btn">Sign Up!</button> 
+    <button type="button" class="cancel_btn">Cancel</button> <!-- go back to register page -->
+        
+        
+        </form> 
+        </div>
+    </body>
+    
+</html>
