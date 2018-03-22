@@ -14,6 +14,10 @@
 	function viewPost(){
 		var id = document.getElementById("id").value;
 		var URL = "http://localhost:8080/post?id=" + id;
+<<<<<<< HEAD
+=======
+		alert(URL);
+>>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
 		$.ajax({
 			type: "GET",
 			url: URL,
@@ -35,12 +39,16 @@
 <p>Enter the id of post:</p>
 <input type=text id="id" />
 <input type=button onclick="viewPost()" value="View"/>
+<<<<<<< HEAD
 </div>
 <div id="result" class="left_side" style="clear: both; padding-top: 10px;">
 </div>
 <div class="left_side" style="clear: both;">
 <p>Or try these links</p>
 {{posts}}
+=======
+<div id="result" style="padding-top: 10px;"></div>
+>>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
 </div>
 </body>
 </html>
