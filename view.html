@@ -1,0 +1,20 @@
+<style type="text/css">
+@import url("css/text.css");
+@import url("styles/default.css");
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script> 
+    $(function(){
+      $("#includedContent").load("dashboard.html"); 
+    });
+</script> 
+<script src="highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<body>
+<div id="includedContent"></div>
+<div style="padding-left: 230px; padding-top:20px; padding-right:30px;">
+Viewing post with ID: {{id}}<br>
+Language: {{language}}<br>
+<pre>{{code}}</pre>
+</div>
+</body>

@@ -13,31 +13,22 @@ window.onclick = function(event) {
 }
 </script> 
 </head>
-<body>
-<h1 align="center">Drexel Coding Service</h1>
-<!-- The Modal -->
-<div id="id01">
-  <!--span onclick="document.getElementById('id01').style.display='none'"
-class="close" title="Close Modal">&times;</span-->
-
+<body style="background-image: url('./banner.jpg');background-position: center; background-size: cover; background-repeat: no-repeat;">
   <!-- Modal Content -->
-  <form class="modal-content animate" action="/send" method="POST">
-    <!-- div class="imgcontainer">
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
-    </div -->
+  <form class="modal-content animate" action="/login" method="POST">
+	<h1 align="center">Drexel Code Sharing Service</h1>
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input type="text" placeholder="Enter Username" name="username" id="username" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
       <button type="submit">Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
-	<div class="psw"><a href="#">New User?</a><br>
-			<a href="#">Forgot your password?</a></div>
+	<div class="psw"><a href="/register">New User?</a></div>
     </div>
 
     <div class="container">

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	@import url("css/text.css");
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script> 
+    $(function(){
+      $("#includedContent").load("dashboard.html"); 
+    });
+</script> 
+</head>
+<body>
+<div id="includedContent"></div>
+<div style="padding-left: 230px; padding-top:20px; padding-right:30px;">
+<div style="background-image: url('./banner.jpg');background-size:cover;background-repeat: no-repeat;height: auto">
+<h1>Welcome, {{user}}</h1>
+<br>
+<hr>
+</div>
+<p>Your posts</p>
+{{posts}}
+</div>
+</div>
+</body>
+</html>
