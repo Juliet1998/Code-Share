@@ -13,7 +13,7 @@
 <script type="text/javascript">
 	function viewPost(){
 		var id = document.getElementById("id").value;
-		var URL = "http://localhost:8080/view?id=" + id;
+		var URL = "http://localhost:8080/post?id=" + id;
 		alert(URL);
 		$.ajax({
 			type: "GET",
