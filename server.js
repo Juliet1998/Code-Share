@@ -1,13 +1,8 @@
 /*
 * Osato Nosakhare
 * Liye Zhu
-<<<<<<< HEAD
 * Eric Szabo
 * 3/22/2018
-=======
-* CS 275 Homeowrk 4
-* 2/27/2018
->>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
 *
 */
 
@@ -25,10 +20,7 @@ var marked = require('marked')
 
 const viewer = fs.readFileSync('./view.html',{ encoding: 'utf8' });
 const dashboard = fs.readFileSync('./posts.html',{ encoding: 'utf8' });
-<<<<<<< HEAD
 const mypost = fs.readFileSync('./mypost.html',{ encoding: 'utf8' });
-=======
->>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
 
 var app = express();
 
@@ -168,7 +160,6 @@ async function getPostById(postId){
      }
      return post;
  });
-<<<<<<< HEAD
 }
 
 async function getPostsByUserId(userId){
@@ -259,8 +250,6 @@ async function buildMypost(req, res){
 function buildPost(post){
   var highlighted = hls.highlight(post.language, post.postContent).value;
   return viewer.replace('{{id}}', post.postId).replace("{{code}}", highlighted).replace("{{language}}", post.language)
-=======
->>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
 }
 
 async function getPostsByUserId(userId){
@@ -306,24 +295,6 @@ function isLoggedIn(req){
   }
 }
 
-async function buildDashboard(req, res){
-  var posts = await getPostsByUserId(req.session.userid)
-  console.log(posts)
-  var links = ''
-  for(var i = 0; i < posts.length; i++){
-    links += '<a href="/delete?id=' + posts[i].postId+ '">Delete</a>&nbsp;&nbsp;';
-    links += '<a href="/post?id=' + posts[i].postId+ '">Post: ' + posts[i].postId + "</a><br>"
-  }
-  console.log(links)
-  return dashboard.replace('{{user}}', req.session.user).replace('{{posts}}', links);
-}
-
-function buildPost(post){
-  var highlighted = hls.highlight(post.language, post.postContent).value;
-  return viewer.replace('{{id}}', post.postId).replace("{{code}}", highlighted).replace("{{language}}", post.language)
-}
-
-
 
 //Examples of how to use these functions
 
@@ -361,7 +332,7 @@ app.post("/login", async function(req, res, next){
      if(user){
       console.log(user)
       console.log(user.username)
--     console.log(user.password)
+      console.log(user.password)
       console.log(hashed_password)
       if(user.password == hashed_password){
         console.log("Successful login")
@@ -408,21 +379,16 @@ app.get("/post", function(req, res){
 });
 
 app.post('/post', async function(req, res){
-<<<<<<< HEAD
 if(isLoggedIn(req)){
-=======
->>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
   console.log(req.body)
   var code = req.body.post;
   var language = req.body.lan;
   var post = await createPost(req.session.userid, code, language);
   res.redirect('/post?id=' + post.postId)
-<<<<<<< HEAD
+
 } else {
      res.redirect('/login')
 }
-=======
->>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
   //Post created. somehow get ID maybe by latest creation date and redirect to it.
 });
 
@@ -498,28 +464,13 @@ app.get('/dashboard', async function(req, res){
 app.get('/logout', function(req, res){
   req.session.destroy();
   res.redirect('/login')
-<<<<<<< HEAD
 });
 
 app.use(express.static("."));
 //app.use(bodyParser.json());
 
-//server.listen(8080);
 var server = http.createServer(app);
 server.listen(8080, function(){
    console.log('Server started...');
 });
 
-//getAllPosts();
-=======
-});
-
-app.use(express.static("."));
-//app.use(bodyParser.json());
-
-//server.listen(8080);
-var server = http.createServer(app);
-server.listen(8080, function(){
-   console.log('Server started...');
-});
->>>>>>> 5cb40ad2d653e55ab596a3496aa7e1afbe6a246d
