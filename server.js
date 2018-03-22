@@ -174,6 +174,24 @@ async function getPostsByUserId(userId){
  });
 }
 
+async function deletePostById(postId, userId){
+   return Post.destroy({
+     where: {
+       post_id: postId,
+       user_id: userId
+     }
+   }).then(function(post) {
+     if (!post){
+       return false
+     }
+     return post;
+ }).catch(function(err) {
+        // print the error details
+        console.log(err);
+        return false;
+  });
+}
+
 function isLoggedIn(req){
   if(!req.session.user){
      return false
@@ -190,6 +208,7 @@ async function buildDashboard(req, res){
   console.log(posts)
   var links = ''
   for(var i = 0; i < posts.length; i++){
+    links += '<a href="/delete?id=' + posts[i].postId+ '">Delete</a>&nbsp;&nbsp;';
     links += '<a href="/post?id=' + posts[i].postId+ '">Post: ' + posts[i].postId + "</a><br>"
   }
   console.log(links)
@@ -200,6 +219,8 @@ function buildPost(post){
   var highlighted = hls.highlight(post.language, post.postContent).value;
   return viewer.replace('{{id}}', post.postId).replace("{{code}}", highlighted).replace("{{language}}", post.language)
 }
+
+
 
 //Examples of how to use these functions
 
@@ -331,6 +352,18 @@ app.get("/success", function(req, res){
   res.redirect("./success.html");
 });
 
+app.get('/delete', async function(req, res){
+  if(isLoggedIn(req)){
+    var postId = req.query.id;
+    var userId = req.session.userid;
+    console.log(postId)
+    var result = await deletePostById(postId, userId);
+    console.log(result)
+    res.redirect('/dashboard')
+  } else {
+    res.end('You do not have permission to delete this post.')
+  }
+});
 
 app.get('/dashboard', async function(req, res){
    if(isLoggedIn(req)){
