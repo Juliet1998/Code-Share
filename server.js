@@ -14,17 +14,16 @@ const genuuid = require('uid-safe');
 const Sequelize = require('sequelize')
 const Sha256 = require('sha256')
 var fs = require('fs');
-var cookieParser = require('cookie-parser');
 var hls = require('highlight.js')
 var marked = require('marked')
 
 const viewer = fs.readFileSync('./view.html',{ encoding: 'utf8' });
+const dashboard = fs.readFileSync('./posts.html',{ encoding: 'utf8' });
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(cookieParser());
 
 app.use(session({
   resave: false,
@@ -161,6 +160,20 @@ async function getPostById(postId){
  });
 }
 
+async function getPostsByUserId(userId){
+   return Post.findAll({
+     where: {
+       user_id: userId
+     },
+     raw : true
+   }).then(function(post) {
+     if (!post){
+       return false
+     }
+     return post;
+ });
+}
+
 function isLoggedIn(req){
   if(!req.session.user){
      return false
@@ -170,6 +183,22 @@ function isLoggedIn(req){
     }
     return false
   }
+}
+
+async function buildDashboard(req, res){
+  var posts = await getPostsByUserId(req.session.userid)
+  console.log(posts)
+  var links = ''
+  for(var i = 0; i < posts.length; i++){
+    links += '<a href="/post?id=' + posts[i].postId+ '">Post: ' + posts[i].postId + "</a><br>"
+  }
+  console.log(links)
+  return dashboard.replace('{{user}}', req.session.user).replace('{{posts}}', links);
+}
+
+function buildPost(post){
+  var highlighted = hls.highlight(post.language, post.postContent).value;
+  return viewer.replace('{{id}}', post.postId).replace("{{code}}", highlighted).replace("{{language}}", post.language)
 }
 
 //Examples of how to use these functions
@@ -219,7 +248,7 @@ app.post("/login", async function(req, res, next){
         res.end("Incorrect password")
       }
      } else{
-     console.log("Username not found")
+        res.end('Username not found')
      }
    }
 
@@ -232,7 +261,7 @@ app.post("/login", async function(req, res, next){
 app.get('/', function(req, res){
 
    if(isLoggedIn(req)){
-     res.redirect('/dashboard.html')
+     res.redirect('/dashboard')
    } else {
      res.redirect('/login')
    }
@@ -243,8 +272,7 @@ app.get("/post", function(req, res){
   getPostById(_id).then(function(post){
    if(post){
       res.set('Content-Type', 'text/html');
-      var highlighted = hls.highlight(post.language, post.postContent).value;
-      res.end(marked(viewer.replace('{{id}}', post.postId).replace("{{code}}", highlighted).replace("{{language}}", post.language)))
+      res.end(buildPost(post))
       //res.end(post.postId + " " +
       //post.userId + " " + post.postContent + " " +
       //post.language)
@@ -304,9 +332,12 @@ app.get("/success", function(req, res){
 });
 
 
-app.get('/dashboard', function(req, res){
+app.get('/dashboard', async function(req, res){
    if(isLoggedIn(req)){
-     res.redirect('/dashboard.html')
+     res.set('Content-Type', 'text/html');
+     var user_dash = await buildDashboard(req, res)
+     res.end(user_dash)
+     //res.redirect('/dashboard.html')
    } else {
      res.redirect('/login')
    }
@@ -317,12 +348,11 @@ app.get('/logout', function(req, res){
   res.redirect('/login')
 });
 
-
 app.use(express.static("."));
 //app.use(bodyParser.json());
 
 //server.listen(8080);
 var server = http.createServer(app);
 server.listen(8080, function(){
-console.log('Server started...');
+   console.log('Server started...');
 });
